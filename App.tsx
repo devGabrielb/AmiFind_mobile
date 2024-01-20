@@ -1,20 +1,27 @@
+import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
+import RootNavigation from './navigation/root';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { useFonts,Manrope_500Medium, Manrope_400Regular } from '@expo-google-fonts/manrope';
 
 export default function App() {
+  let [fontsLoaded, fontError] = useFonts({
+    Manrope_400Regular, Manrope_500Medium
+  });
+
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaProvider style ={styles.container}>
+      <StatusBar style='auto' />
+    <RootNavigation /> 
+    </SafeAreaProvider>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+   flex:1
+  }
 });
